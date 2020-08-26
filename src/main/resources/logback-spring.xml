@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<!--
+		ERROR < WARN < INFO < DEBUG < TRACE
+		INFO 레벨로 지정하면 INFO, WARN, ERROR 로그가 찍히고, WARN 레벨로 지정하면 WARN, ERROR 로그가 찍힌다.
+		FATAL은 없고 TRACE, DEBUG 레벨로 찍을 경우 로그가 상당히 많이 찍히므로 주의해야한다.
+	 -->
+
+	<include resource="org/springframework/boot/logging/logback/base.xml"/> 	
+
+	<!-- 개발자PC 환경 -->
+
+ 		<!-- 콘솔화면출력  -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss} %-5level %logger{80}:%L %M - %msg%n</pattern>
+        </encoder>
+    </appender>		    
+
+ 	<logger name="jdbc" level="OFF"/>
+   	<logger name="jdbc.sqlonly" level="OFF"/>
+   	<logger name="jdbc.sqltiming" level="DEBUG"/>
+   	<logger name="jdbc.audit" level="OFF"/>
+   	<logger name="jdbc.resultset" level="OFF"/>
+   	<logger name="jdbc.resultsettable" level="DEBUG"/>
+   	<logger name="jdbc.connection" level="OFF"/>
+
+    <logger name="com.buzz.app"  level="DEBUG"/>	    
+
+	<root level="ERROR">
+ 		<appender-ref ref="STDOUT"/>
+	</root>
+	
+
+
+</configuration>
