@@ -37,7 +37,7 @@ public class MainDataSourceConfig {
 	}
 	
 	@Primary
-	@Bean(name = "mainDataSource")    
+	@Bean(name = "mainDataSource",destroyMethod = "close")    
 	@ConfigurationProperties(prefix="spring.maindb.datasource")
     public DataSource mainDataSource() {
         return DataSourceBuilder.create().build();

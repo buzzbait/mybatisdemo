@@ -31,7 +31,7 @@ public class InterfaceDataSourceConfig {
 	private ApplicationContext _applicationContext;
 		
 	  
-	@Bean(name = "intefaceDataSource")
+	@Bean(name = "intefaceDataSource",destroyMethod = "close")	
 	@ConfigurationProperties(prefix="spring.interface.datasource")
     public DataSource interfaceDataSource() {
         return DataSourceBuilder.create().build();
