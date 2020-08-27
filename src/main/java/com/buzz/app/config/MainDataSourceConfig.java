@@ -9,6 +9,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.ApplicationContext;
@@ -17,9 +18,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+//@PropertySource({ "classpath:application.yml" })
 @Configuration
-@MapperScan("com.buzz.app.mapper.maindb")
+@EnableTransactionManagement
+//@MapperScan("com.buzz.app.mapper.maindb")
+@MapperScan(value ="com.buzz.app.mapper.maindb",sqlSessionFactoryRef = "mainSqlSessionFactory")
 public class MainDataSourceConfig {
 
 	private static final Logger logger = LoggerFactory.getLogger(MainDataSourceConfig.class);
@@ -31,9 +36,8 @@ public class MainDataSourceConfig {
 		logger.info("start >>> MainDataSourceConfig");
 	}
 	
-	
-	@Bean
-    @Primary
+	@Primary
+	@Bean(name = "mainDataSource")    
 	@ConfigurationProperties(prefix="spring.maindb.datasource")
     public DataSource mainDataSource() {
         return DataSourceBuilder.create().build();
@@ -42,10 +46,10 @@ public class MainDataSourceConfig {
 	/******************************************************************************************************************
      *     DB Transaction 설정
      ******************************************************************************************************************/
-    @Bean
+	@Primary
+	@Bean(name = "mainPlatformTransactionManager")    
     public PlatformTransactionManager  transactionManager(){
-   	
-    	
+   	    	
     	//default 설정
         DataSourceTransactionManager transactionManager = new DataSourceTransactionManager(mainDataSource());
         
@@ -58,10 +62,11 @@ public class MainDataSourceConfig {
     /******************************************************************************************************************
      *     MyBatis 설정파일을 바탕으로 SqlSessionFactory를 생성
      ******************************************************************************************************************/
-    @Bean
-    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+	@Primary
+    @Bean(name = "mainSqlSessionFactory")
+    public SqlSessionFactory sqlSessionFactory(@Qualifier("mainDataSource") DataSource dataSource) throws Exception {
     	
-    	logger.info("start >>> sqlSessionFactory");
+    	logger.info("start >>> mainSqlSessionFactory");
     	
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
@@ -86,9 +91,10 @@ public class MainDataSourceConfig {
      * Mybatis SqlSessionTemplate 설정
      * 핵심적인 역할을 하는 클래스로서 SQL 실행이나 트랜잭션 관리를 한다.
      * SqlSession 인터페이스를 구현해야 하며, Thread-safe 하다.
-     ******************************************************************************************************************/    
-    @Bean
-    public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
+     ******************************************************************************************************************/
+	@Primary
+    @Bean(name = "mainSqlSessionTemplate")
+    public SqlSessionTemplate sqlSessionTemplate(@Qualifier("mainSqlSessionFactory") SqlSessionFactory sqlSessionFactory) {
     	   	
     	
         return new SqlSessionTemplate(sqlSessionFactory);

@@ -36,4 +36,12 @@ public class DemoController {
 		return this.demoService.updateDynamic();
 	}
 	
+	@GetMapping("/inf")
+	public HashMap<String,Object> inf(){
+
+		return this.demoService.interfacedb();
+	}
+
+	
+	
 }

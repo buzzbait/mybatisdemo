@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.buzz.app.mapper.interfacedb.UserRoleMapper;
 import com.buzz.app.mapper.maindb.EmployeeMapper;
 //import com.buzz.app.table.dynamic.EmployeesTableSupport;
 import static com.buzz.app.table.dynamic.EmployeesTableSupport.*;
@@ -27,6 +28,10 @@ public class DemoService {
 
 	@Autowired
 	private EmployeeMapper employeeMapper;
+	
+	@Autowired
+	private UserRoleMapper userRoleMapper;
+	
 		
 	public HashMap<String,Object> getAllEmplpyee() {
 		
@@ -80,5 +85,18 @@ public class DemoService {
 		
 		return result;
 	}
+	
+	public HashMap<String,Object> interfacedb(){
+		
+		HashMap<String, Object> result = new  HashMap<String, Object>();
+		
+		List< HashMap<String, Object>> queryResult = this.userRoleMapper.selectAll();
+		
+		result.put("status", 0);
+		result.put("data",queryResult);		
+		
+		return result;
+	}
+	
 	
 }
