@@ -98,5 +98,17 @@ public class DemoService {
 		return result;
 	}
 	
+	public HashMap<String,Object> count(){
+		
+		HashMap<String, Object> result = new  HashMap<String, Object>();
+		
+		long count = this.employeeMapper.count( t -> t.where(lastName ,isEqualTo("Alice")) );
+		
+		result.put("status", 0);
+		result.put("data",count);		
+		
+		return result;
+	}
+	
 	
 }

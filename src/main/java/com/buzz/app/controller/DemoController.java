@@ -42,6 +42,10 @@ public class DemoController {
 		return this.demoService.interfacedb();
 	}
 
-	
+	@GetMapping("/count")
+	public HashMap<String,Object> count(){
+
+		return this.demoService.count();
+	}
 	
 }
