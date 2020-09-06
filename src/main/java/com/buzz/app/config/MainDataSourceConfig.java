@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 //@MapperScan("com.buzz.app.mapper.maindb")
-@MapperScan(value ="com.buzz.app.mapper.maindb",sqlSessionFactoryRef = "mainSqlSessionFactory")
+@MapperScan(value ="com.buzz.app.mapper.maindb.*",sqlSessionFactoryRef = "mainSqlSessionFactory")
 public class MainDataSourceConfig {
 
 	private static final Logger logger = LoggerFactory.getLogger(MainDataSourceConfig.class);

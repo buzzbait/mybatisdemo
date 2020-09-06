@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.buzz.app.mapper.interfacedb.UserRoleMapper;
-import com.buzz.app.mapper.maindb.EmployeeMapper;
+//import com.buzz.app.mapper.maindb.EmployeeMapper;
 //import com.buzz.app.table.dynamic.EmployeesTableSupport;
 import static com.buzz.app.table.dynamic.EmployeesTableSupport.*;
 
@@ -26,12 +26,13 @@ import static org.mybatis.dynamic.sql.SqlBuilder.update;
 @Transactional
 public class DemoService {
 
-	@Autowired
-	private EmployeeMapper employeeMapper;
+	//@Autowired
+	//private EmployeeMapper employeeMapper;
 	
 	@Autowired
 	private UserRoleMapper userRoleMapper;
 	
+	/*
 		
 	public HashMap<String,Object> getAllEmplpyee() {
 		
@@ -102,13 +103,15 @@ public class DemoService {
 		
 		HashMap<String, Object> result = new  HashMap<String, Object>();
 		
-		long count = this.employeeMapper.count( t -> t.where(lastName ,isEqualTo("Alice")) );
+		long count = this.employeeMapper.count(id, t -> t.where(lastName ,isEqualTo("Alice")) );
+		
+		//long count = this.employeeMapper.count( t -> t.where(lastName ,isEqualTo("Alice")) );
 		
 		result.put("status", 0);
 		result.put("data",count);		
 		
 		return result;
 	}
-	
+	*/
 	
 }

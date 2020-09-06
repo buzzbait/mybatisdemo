@@ -15,7 +15,7 @@ public class DemoController {
 
 	@Autowired
 	private DemoService demoService;
-		
+	/*	
 	
 	@GetMapping("/hello")
 	public HashMap<String,Object> hello(){
@@ -47,5 +47,6 @@ public class DemoController {
 
 		return this.demoService.count();
 	}
+	*/
 	
 }
